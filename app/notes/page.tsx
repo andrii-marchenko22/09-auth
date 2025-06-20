@@ -1,17 +1,19 @@
+"use client";
+
 import { fetchNotes } from "@/lib/api";
 import { NoteList } from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
-import css from "./App.module.css";
+import css from "@/app/notes/page.module.css";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { SearchBox } from "@/components/SearchBox/SearchBox";
 import { NoteModal } from "@/components/NoteModal/NoteModal";
 import { useDebounce } from "use-debounce";
 import { Toaster } from "react-hot-toast";
-import { ErrorMessage } from "@/app/notes/ErrorMesage";
-import { Loader } from "@/app/notes/Loader";
+import { ErrorMessage } from "@/components/ErrorMesage/ErrorMesage";
+import { Loader } from "@/components/Loader/Loader";
 
-function App() {
+const Notes = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,6 +63,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
-export default App;
+export default Notes;

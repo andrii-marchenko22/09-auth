@@ -1,3 +1,5 @@
+"use client";
+
 import { NoteForm } from "@/components/NoteForm/NoteForm";
 import css from "./NoteModal.module.css";
 import { createPortal } from "react-dom";
