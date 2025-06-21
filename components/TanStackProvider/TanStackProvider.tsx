@@ -8,7 +8,7 @@ interface Props {
 }
 
 const TanStackProvider = ({ children }: Props) => {
-  const [queryClient] = useState(new QueryClient());
+  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

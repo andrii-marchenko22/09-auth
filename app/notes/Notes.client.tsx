@@ -12,8 +12,13 @@ import { useDebounce } from "use-debounce";
 import { Toaster } from "react-hot-toast";
 import { ErrorMessage } from "@/components/ErrorMesage/ErrorMesage";
 import { Loader } from "@/components/Loader/Loader";
+import type { NotesResponse } from "@/types/note";
 
-const Notes = () => {
+interface NotesClientProps {
+  initialData: NotesResponse;
+}
+
+const NotesClient = ({ initialData }: NotesClientProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +31,10 @@ const Notes = () => {
     queryKey: ["notes", debouncedSearchQuery, currentPage],
     queryFn: () => fetchNotes(debouncedSearchQuery, currentPage),
     placeholderData: keepPreviousData,
+    initialData:
+      debouncedSearchQuery === "" && currentPage === 1
+        ? initialData
+        : undefined,
   });
 
   const handleSearchQuery = (newQuery: string) => {
@@ -65,4 +74,4 @@ const Notes = () => {
   );
 };
 
-export default Notes;
+export default NotesClient;

@@ -1,15 +1,48 @@
-import css from "@/app/notes/[id]/NoteDetails.module.css";
-import { Note } from "../../../types/note";
+"use client";
 
-type Props = {
-  item?: Note | null;
-  isLoading?: boolean;
-  error?: Error | null;
+import { useState } from "react";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+import { hydrate } from "@tanstack/query-core";
+import css from "@/app/notes/[id]/NoteDetails.module.css";
+import { fetchNoteById } from "@/lib/api";
+
+interface NoteDetailsClientProps {
+  noteId: number;
+  dehydratedState: unknown;
+}
+
+const NoteDetailsClient = ({
+  noteId,
+  dehydratedState,
+}: NoteDetailsClientProps) => {
+  const [queryClient] = useState(() => {
+    const queryClientInstance = new QueryClient();
+    hydrate(queryClientInstance, dehydratedState);
+    return queryClientInstance;
+  });
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <NoteDetailsContent noteId={noteId} />
+    </QueryClientProvider>
+  );
 };
 
-const NoteDetailsClient = ({ item, isLoading, error }: Props) => {
-  if (isLoading) return <p>Loading, please wait...</p>;
+const NoteDetailsContent = ({ noteId }: { noteId: number }) => {
+  const {
+    data: item,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["note", noteId],
+    queryFn: () => fetchNoteById(noteId),
+  });
 
+  if (isLoading) return <p>Loading, please wait...</p>;
   if (error || !item) return <p>Something went wrong.</p>;
 
   return (
