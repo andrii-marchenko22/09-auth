@@ -23,7 +23,7 @@ const NoteDetailsClient = ({ noteId }: NoteDetailsClientProps) => {
   );
 };
 
-const NoteDetailsContent = ({ noteId }: { noteId: number }) => {
+const NoteDetailsContent = ({ noteId }: NoteDetailsClientProps) => {
   const {
     data: item,
     isLoading,
