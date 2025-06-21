@@ -3,21 +3,12 @@
 import { useQuery } from "@tanstack/react-query";
 import css from "@/app/notes/[id]/NoteDetails.module.css";
 import { fetchNoteById } from "@/lib/api";
-import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 interface NoteDetailsClientProps {
   noteId: number;
 }
 
 const NoteDetailsClient = ({ noteId }: NoteDetailsClientProps) => {
-  return (
-    <TanStackProvider>
-      <NoteDetailsContent noteId={noteId} />
-    </TanStackProvider>
-  );
-};
-
-const NoteDetailsContent = ({ noteId }: NoteDetailsClientProps) => {
   const {
     data: item,
     isLoading,
