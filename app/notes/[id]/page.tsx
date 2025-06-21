@@ -21,11 +21,9 @@ const NoteDetails = async ({ params }: Props) => {
     queryFn: () => fetchNoteById(noteId),
   });
 
-  const dehydratedState = dehydrate(queryClient);
-
   return (
-    <HydrationBoundary>
-      <NoteDetailsClient noteId={noteId} dehydratedState={dehydratedState} />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <NoteDetailsClient noteId={noteId} />
     </HydrationBoundary>
   );
 };

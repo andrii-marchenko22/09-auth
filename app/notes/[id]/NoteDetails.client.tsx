@@ -6,24 +6,15 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import { hydrate } from "@tanstack/query-core";
 import css from "@/app/notes/[id]/NoteDetails.module.css";
 import { fetchNoteById } from "@/lib/api";
 
 interface NoteDetailsClientProps {
   noteId: number;
-  dehydratedState: unknown;
 }
 
-const NoteDetailsClient = ({
-  noteId,
-  dehydratedState,
-}: NoteDetailsClientProps) => {
-  const [queryClient] = useState(() => {
-    const queryClientInstance = new QueryClient();
-    hydrate(queryClientInstance, dehydratedState);
-    return queryClientInstance;
-  });
+const NoteDetailsClient = ({ noteId }: NoteDetailsClientProps) => {
+  const [queryClient] = useState(() => new QueryClient());
 
   return (
     <QueryClientProvider client={queryClient}>
