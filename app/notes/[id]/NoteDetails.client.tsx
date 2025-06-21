@@ -1,25 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import css from "@/app/notes/[id]/NoteDetails.module.css";
 import { fetchNoteById } from "@/lib/api";
+import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 interface NoteDetailsClientProps {
   noteId: number;
 }
 
 const NoteDetailsClient = ({ noteId }: NoteDetailsClientProps) => {
-  const [queryClient] = useState(() => new QueryClient());
-
   return (
-    <QueryClientProvider client={queryClient}>
+    <TanStackProvider>
       <NoteDetailsContent noteId={noteId} />
-    </QueryClientProvider>
+    </TanStackProvider>
   );
 };
 
