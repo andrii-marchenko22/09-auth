@@ -3,16 +3,16 @@
 import { fetchNotes } from "@/lib/api";
 import { NoteList } from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
-import css from "@/app/notes/Notes.client.module.css";
+import css from "./Notes.client.module.css";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { SearchBox } from "@/components/SearchBox/SearchBox";
-import { NoteModal } from "@/components/NoteModal/NoteModal";
 import { useDebounce } from "use-debounce";
 import { Toaster } from "react-hot-toast";
 import { ErrorMessage } from "@/components/ErrorMesage/ErrorMesage";
 import { Loader } from "@/components/Loader/Loader";
 import type { NotesResponse } from "@/types/note";
+import { Modal } from "@/components/Modal/Modal";
 
 interface NotesClientProps {
   initialData: NotesResponse;
@@ -62,7 +62,7 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
             Create note +
           </button>
         </header>
-        {isModalOpen && <NoteModal onClose={closeModal} />}
+        {isModalOpen && <Modal onClose={closeModal} />}
         {error && <ErrorMessage message="Could not fetch the list of notes." />}
         {isLoading && <Loader />}
         {!isLoading && !error && notes.length > 0 && <NoteList notes={notes} />}

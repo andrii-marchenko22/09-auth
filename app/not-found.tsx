@@ -1,4 +1,4 @@
-import css from "@/app/Home.module.css";
+import css from "./NotFound.module.css";
 
 const NotFound = () => {
   return (
