@@ -1,10 +1,8 @@
 import { TagsMenu } from "@/components/TagsMenu/TagsMenu";
 import css from "./Header.module.css";
 import Link from "next/link";
-import { getTags } from "@/lib/api";
 
 const Header = async () => {
-  const tags = await getTags();
   return (
     <header className={css.header}>
       <Link href="/" aria-label="Home" className={css.headerLink}>
@@ -18,7 +16,7 @@ const Header = async () => {
             </Link>
           </li>
           <li className={css.navigationItem}>
-            <TagsMenu tags={tags} />
+            <TagsMenu />
           </li>
         </ul>
       </nav>

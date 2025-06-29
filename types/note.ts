@@ -17,4 +17,5 @@ export interface NotesResponse {
   notes: Note[];
   page: number;
   totalPages: number;
+  tag: string;
 }

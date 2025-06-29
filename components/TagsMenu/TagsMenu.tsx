@@ -1,17 +1,13 @@
 "use client";
 
+import tags from "@/lib/tags";
 import css from "./TagsMenu.module.css";
 import Link from "next/link";
-import { useId, useState } from "react";
+import { useState } from "react";
 
-interface TagsMenuProps {
-  tags: string[];
-}
-
-export const TagsMenu = ({ tags }: TagsMenuProps) => {
+export const TagsMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const openMenu = () => setIsOpen(isOpen ? false : true);
-  const id = useId();
 
   return (
     <div className={css.menuContainer}>
@@ -27,16 +23,14 @@ export const TagsMenu = ({ tags }: TagsMenuProps) => {
 
       {isOpen && (
         <ul id="tags-menu" className={css.menuList} role="menu">
-          {["All", ...tags].map((tag, index) => (
-            <li
-              className={css.menuItem}
-              key={`${id}-tag-${index}`}
-              role="menuitem"
-            >
-              <Link
-                href={`/notes/filter/${tag.toLowerCase()}`}
-                className={css.menuLink}
-              >
+          <li className={css.menuItem} role="menuitem">
+            <Link href={`/notes/filter/All`} className={css.menuLink}>
+              All
+            </Link>
+          </li>
+          {tags.map((tag) => (
+            <li className={css.menuItem} key={`${tag}`} role="menuitem">
+              <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
                 {tag}
               </Link>
             </li>

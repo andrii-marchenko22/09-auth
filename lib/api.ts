@@ -9,13 +9,15 @@ type fetchNotesResponse = NotesResponse & { totalCount: number };
 export const fetchNotes = async (
   searchText: string,
   page = 1,
-  perPage = 12
+  perPage = 12,
+  tag?: string
 ): Promise<fetchNotesResponse> => {
   const response = await axios.get<NotesResponse>(BASE_URL, {
     params: {
       ...(searchText !== "" && { search: searchText }),
       page,
       perPage,
+      ...(tag && tag !== "all" && { tag }),
     },
     headers: {
       Authorization: `Bearer ${token}`,
@@ -28,43 +30,43 @@ export const fetchNotes = async (
 };
 
 export const createNote = async (noteData: NewNote): Promise<Note> => {
-  const response = await axios.post<Note>(BASE_URL, noteData, {
+  const { data } = await axios.post<Note>(BASE_URL, noteData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return response.data;
+  return data;
 };
 
 export const deleteNote = async (notesId: number): Promise<Note> => {
-  const response = await axios.delete<Note>(`${BASE_URL}/${notesId}`, {
+  const { data } = await axios.delete<Note>(`${BASE_URL}/${notesId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return response.data;
+  return data;
 };
 
 export const fetchNoteById = async (id: number): Promise<Note> => {
-  const response = await axios.get<Note>(`${BASE_URL}/${id}`, {
+  const { data } = await axios.get<Note>(`${BASE_URL}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return response.data;
+  return data;
 };
 
-export const getInitialNotes = () => fetchNotes("", 1, 12);
+export const getInitialNotes = () => fetchNotes("", 1, 12, "");
 
-export const getNotes = async (tag: string) => {
-  const params = tag ? { tag } : undefined;
-
-  const response = await axios.get<NotesResponse>(BASE_URL, {
+export const getNotes = async (tagId?: string): Promise<NotesResponse> => {
+  const { data } = await axios.get<NotesResponse>(BASE_URL, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    params,
+    params: {
+      ...(tagId && tagId !== "all" && { tag: tagId }),
+    },
   });
 
-  return response.data;
+  return data;
 };

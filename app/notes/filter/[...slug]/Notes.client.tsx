@@ -16,9 +16,10 @@ import { Modal } from "@/components/Modal/Modal";
 
 interface NotesClientProps {
   initialData: NotesResponse;
+  activeTag: string;
 }
 
-const NotesClient = ({ initialData }: NotesClientProps) => {
+const NotesClient = ({ initialData, activeTag }: NotesClientProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,11 +29,13 @@ const NotesClient = ({ initialData }: NotesClientProps) => {
   const closeModal = () => setIsModalOpen(false);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["notes", debouncedSearchQuery, currentPage],
-    queryFn: () => fetchNotes(debouncedSearchQuery, currentPage),
+    queryKey: ["notes", debouncedSearchQuery, currentPage, activeTag],
+    queryFn: () => fetchNotes(debouncedSearchQuery, currentPage, 12, activeTag),
     placeholderData: keepPreviousData,
     initialData:
-      debouncedSearchQuery === "" && currentPage === 1
+      debouncedSearchQuery === "" &&
+      currentPage === 1 &&
+      initialData.tag === activeTag
         ? initialData
         : undefined,
   });
