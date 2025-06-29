@@ -24,13 +24,21 @@ export const TagsMenu = () => {
       {isOpen && (
         <ul id="tags-menu" className={css.menuList} role="menu">
           <li className={css.menuItem} role="menuitem">
-            <Link href={`/notes/filter/All`} className={css.menuLink}>
+            <Link
+              href={`/notes/filter/All`}
+              className={css.menuLink}
+              onClick={openMenu}
+            >
               All
             </Link>
           </li>
           {tags.map((tag) => (
             <li className={css.menuItem} key={`${tag}`} role="menuitem">
-              <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
+              <Link
+                href={`/notes/filter/${tag}`}
+                className={css.menuLink}
+                onClick={openMenu}
+              >
                 {tag}
               </Link>
             </li>
