@@ -56,13 +56,6 @@ export const fetchNoteById = async (id: number): Promise<Note> => {
 
 export const getInitialNotes = () => fetchNotes("", 1, 12);
 
-export const getTags = async (): Promise<string[]> => {
-  const { data } = await axios.get<{ notes: Note[] }>(BASE_URL, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return [...new Set(data.notes.map(({ tag }) => tag))];
-};
-
 export const getNotes = async (tag: string) => {
   const params = tag ? { tag } : undefined;
 
