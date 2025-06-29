@@ -4,7 +4,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import PreviewClient from "./NotePreviewClient";
+import PreviewClient from "./NotePreview.client";
 
 interface Props {
   params: Promise<{ id: string }>;

@@ -1,5 +1,5 @@
 import { fetchNoteById } from "@/lib/api";
-import NoteDetailsClient from "@/app/@modal/(.)notes/[id]/NotePreviewClient";
+import NoteDetailsClient from "@/app/@modal/(.)notes/[id]/NotePreview.client";
 import {
   HydrationBoundary,
   QueryClient,
