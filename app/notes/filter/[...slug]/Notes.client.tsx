@@ -13,6 +13,7 @@ import { ErrorMessage } from "@/components/ErrorMesage/ErrorMesage";
 import { Loader } from "@/components/Loader/Loader";
 import type { NotesResponse } from "@/types/note";
 import { Modal } from "@/components/Modal/Modal";
+import { NoteForm } from "@/components/NoteForm/NoteForm";
 
 interface NotesClientProps {
   initialData: NotesResponse;
@@ -65,7 +66,11 @@ const NotesClient = ({ initialData, activeTag }: NotesClientProps) => {
             Create note +
           </button>
         </header>
-        {isModalOpen && <Modal onClose={closeModal} />}
+        {isModalOpen && (
+          <Modal onClose={closeModal}>
+            <NoteForm onClose={closeModal} />
+          </Modal>
+        )}
         {error && <ErrorMessage message="Could not fetch the list of notes." />}
         {isLoading && <Loader />}
         {!isLoading && !error && notes.length > 0 && <NoteList notes={notes} />}

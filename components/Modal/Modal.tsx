@@ -1,15 +1,15 @@
 "use client";
 
-import { NoteForm } from "@/components/NoteForm/NoteForm";
 import css from "./Modal.module.css";
 import { createPortal } from "react-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 interface ModalProps {
+  children: React.ReactNode;
   onClose: () => void;
 }
 
-export const Modal = ({ onClose }: ModalProps) => {
+export const Modal = ({ onClose, children }: ModalProps) => {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -39,9 +39,7 @@ export const Modal = ({ onClose }: ModalProps) => {
       aria-modal="true"
       onClick={handleBackdropClick}
     >
-      <div className={css.modal}>
-        <NoteForm onClose={onClose} />
-      </div>
+      <div className={css.modal}>{children}</div>
     </div>,
     document.body
   );
