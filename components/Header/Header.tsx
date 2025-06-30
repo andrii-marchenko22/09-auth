@@ -9,7 +9,7 @@ const Header = async () => {
         NoteHub
       </Link>
       <nav aria-label="Main Navigation" className={css.navigation}>
-        <ul className={css.navigation}>
+        <ul className={css.navList}>
           <li className={css.navigationItem}>
             <Link href="/" className={css.navigationLink}>
               Home

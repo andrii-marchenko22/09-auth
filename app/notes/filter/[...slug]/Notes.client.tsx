@@ -36,7 +36,7 @@ const NotesClient = ({ initialData, activeTag }: NotesClientProps) => {
     initialData:
       debouncedSearchQuery === "" &&
       currentPage === 1 &&
-      initialData.tag === activeTag
+      (initialData.tag ?? "") === (activeTag ?? "")
         ? initialData
         : undefined,
   });

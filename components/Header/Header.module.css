@@ -26,6 +26,14 @@
   gap: 1rem;
 }
 
+.navList {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
 .navigationItem {
   display: flex;
   align-items: center;
