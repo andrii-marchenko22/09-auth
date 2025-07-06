@@ -13,7 +13,7 @@ import { ErrorMessage } from "@/components/ErrorMesage/ErrorMesage";
 import { Loader } from "@/components/Loader/Loader";
 import type { NotesResponse } from "@/types/note";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface NotesClientProps {
   initialData: NotesResponse;
