@@ -12,8 +12,7 @@ import { Toaster } from "react-hot-toast";
 import { ErrorMessage } from "@/components/ErrorMesage/ErrorMesage";
 import { Loader } from "@/components/Loader/Loader";
 import type { NotesResponse } from "@/types/note";
-import { Modal } from "@/components/Modal/Modal";
-import { NoteForm } from "@/components/NoteForm/NoteForm";
+import Link from "next/link";
 
 interface NotesClientProps {
   initialData: NotesResponse;
@@ -23,11 +22,8 @@ interface NotesClientProps {
 const NotesClient = ({ initialData, activeTag }: NotesClientProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["notes", debouncedSearchQuery, currentPage, activeTag],
@@ -62,15 +58,11 @@ const NotesClient = ({ initialData, activeTag }: NotesClientProps) => {
               onPageChange={(page: number) => setCurrentPage(page)}
             />
           )}
-          <button className={css.button} onClick={openModal}>
+          <Link href="/app/notes/action/create/" className={css.button}>
             Create note +
-          </button>
+          </Link>
         </header>
-        {isModalOpen && (
-          <Modal onClose={closeModal}>
-            <NoteForm onClose={closeModal} />
-          </Modal>
-        )}
+
         {error && <ErrorMessage message="Could not fetch the list of notes." />}
         {isLoading && <Loader />}
         {!isLoading && !error && notes.length > 0 && <NoteList notes={notes} />}
