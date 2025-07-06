@@ -13,12 +13,14 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "NoteHub",
-  description: "Note-taking app",
+  title: "NoteHub — Smart Note-Taking App",
+  description:
+    "NoteHub is a modern web application for creating, editing, and organizing your notes effortlessly. Keep track of your ideas, reminders, and to-do lists in one secure, accessible place.",
   openGraph: {
-    title: "NoteHub",
-    description: "Note-taking app",
-    url: "https://07-routing-nextjs-coral.vercel.app/",
+    title: "NoteHub — Smart Note-Taking App",
+    description:
+      "Easily create, manage, and organize your notes online with NoteHub. A clean interface and powerful features designed to boost your productivity.",
+    url: "https://08-zustand-beryl.vercel.app/",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
@@ -31,6 +33,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/notehub-og-meta.ico",
   },
+  themeColor: "#4A90E2",
 };
 
 export default function RootLayout({

@@ -1,11 +1,12 @@
 import { getNotes } from "@/lib/api";
 import NotesClient from "./Notes.client";
+import { Metadata } from "next";
 
 interface Props {
   params: Promise<{ slug: string[] }>;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const category = slug[0];
 
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: Props) {
     openGraph: {
       title: `Notes filtered by: ${category}`,
       description: `Browse all notes in the "${category}" category.`,
-      url: `https://07-routing-nextjs-coral.vercel.app/notes/filter/${slug.join("/")}`,
+      url: `https://08-zustand-beryl.vercel.app/notes/filter/${slug.join("/")}`,
       siteName: "NoteHub",
       images: [
         {

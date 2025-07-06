@@ -2,12 +2,14 @@ import css from "./NotFound.module.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Not found",
-  description: "Page-not-found",
+  title: "Page Not Found — NoteHub",
+  description:
+    "Sorry, the page you are looking for does not exist. Explore other features and notes at NoteHub.",
   openGraph: {
-    title: "Not-found",
-    description: "Page-not-found",
-    url: "https://07-routing-nextjs-coral.vercel.app/not-found",
+    title: "Page Not Found — NoteHub",
+    description:
+      "This page could not be found. Browse NoteHub to manage and organize your notes effortlessly.",
+    url: "https://08-zustand-beryl.vercel.app/not-found",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
@@ -16,7 +18,16 @@ export const metadata: Metadata = {
         alt: "Page Not Found - NoteHub",
       },
     ],
+    type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Page Not Found — NoteHub",
+    description:
+      "Sorry, the page you are trying to access doesn't exist. Visit NoteHub to keep track of your notes.",
+    images: ["https://ac.goit.global/fullstack/react/notehub-og-meta.jpg"],
+  },
+  themeColor: "#4A90E2",
 };
 
 const NotFound = () => {
