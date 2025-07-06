@@ -12,7 +12,8 @@ import { Toaster } from "react-hot-toast";
 import { ErrorMessage } from "@/components/ErrorMesage/ErrorMesage";
 import { Loader } from "@/components/Loader/Loader";
 import type { NotesResponse } from "@/types/note";
-import Link from "next/link";
+
+import { useRouter } from "next/router";
 
 interface NotesClientProps {
   initialData: NotesResponse;
@@ -24,6 +25,8 @@ const NotesClient = ({ initialData, activeTag }: NotesClientProps) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
+
+  const router = useRouter();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["notes", debouncedSearchQuery, currentPage, activeTag],
@@ -58,9 +61,12 @@ const NotesClient = ({ initialData, activeTag }: NotesClientProps) => {
               onPageChange={(page: number) => setCurrentPage(page)}
             />
           )}
-          <Link href="/app/notes/action/create/" className={css.button}>
+          <button
+            className={css.button}
+            onClick={() => router.push("/notes/action/create")}
+          >
             Create note +
-          </Link>
+          </button>
         </header>
 
         {error && <ErrorMessage message="Could not fetch the list of notes." />}
