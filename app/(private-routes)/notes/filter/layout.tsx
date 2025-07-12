@@ -1,4 +1,4 @@
-import css from "@/app/notes/filter/@sidebar/SidebarNotes.module.css";
+import css from "./@sidebar/SidebarNotes.module.css";
 
 interface Props {
   children: React.ReactNode;

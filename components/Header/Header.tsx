@@ -1,13 +1,20 @@
-import { TagsMenu } from "@/components/TagsMenu/TagsMenu";
+"use client";
+
+import { useAuthStore } from "@/lib/store/authStore";
 import css from "./Header.module.css";
 import Link from "next/link";
+import { TagsMenu } from "@/components/TagsMenu/TagsMenu";
+import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
 
-const Header = async () => {
+const Header = () => {
+  const { isAuthenticated } = useAuthStore();
+
   return (
     <header className={css.header}>
       <Link href="/" aria-label="Home" className={css.headerLink}>
         NoteHub
       </Link>
+
       <nav aria-label="Main Navigation" className={css.navigation}>
         <ul className={css.navList}>
           <li className={css.navigationItem}>
@@ -15,9 +22,14 @@ const Header = async () => {
               Home
             </Link>
           </li>
-          <li className={css.navigationItem}>
-            <TagsMenu />
-          </li>
+
+          {isAuthenticated && (
+            <li className={css.navigationItem}>
+              <TagsMenu />
+            </li>
+          )}
+
+          <AuthNavigation />
         </ul>
       </nav>
     </header>
