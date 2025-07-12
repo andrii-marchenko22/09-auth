@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import css from "./SignUpPage.module.css";
 import { useState } from "react";
 import { useAuthStore } from "@/lib/store/authStore";
-import { register } from "@/lib/api/clientApi.ts";
+import { register } from "@/lib/api/clientApi";
 import { RegisterRequest } from "@/types/note";
 
 const SignUpPage = () => {
