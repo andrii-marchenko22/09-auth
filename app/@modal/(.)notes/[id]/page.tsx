@@ -1,4 +1,4 @@
-import { fetchNoteById } from "@/lib/api/clientApi.ts";
+import { fetchNoteById } from "@/lib/api/clientApi";
 import {
   HydrationBoundary,
   QueryClient,

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { api } from "../../api";
+import { api } from "@/app/api/api";
 import { parse } from "cookie";
 
 export async function GET() {

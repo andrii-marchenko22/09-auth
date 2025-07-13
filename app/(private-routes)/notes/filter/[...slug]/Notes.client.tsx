@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchNotes } from "@/lib/api/clientApi.ts";
+import { fetchNotes } from "@/lib/api/clientApi";
 import { NoteList } from "@/components/NoteList/NoteList";
 import Pagination from "@/components/Pagination/Pagination";
 import css from "./Notes.client.module.css";

@@ -3,7 +3,7 @@
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./AuthNavigation.module.css";
 import { useRouter } from "next/navigation";
-import { logout } from "@/lib/api/clientApi.ts";
+import { logout } from "@/lib/api/clientApi";
 import Link from "next/link";
 
 const AuthNavigation = () => {
@@ -27,7 +27,7 @@ const AuthNavigation = () => {
         </Link>
       </li>
       <li className={css.navigationItem}>
-        <p className={css.userEmail}>User: {user?.email}</p>
+        <p className={css.userEmail}>User: {user?.username || user?.email}</p>
         <button className={css.logoutButton} onClick={handleLogout}>
           Logout
         </button>

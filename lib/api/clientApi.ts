@@ -1,11 +1,7 @@
-import type {
-  Note,
-  NewNote,
-  NotesResponse,
-  RegisterRequest,
-} from "@/types/note";
+import type { Note, NewNote, NotesResponse } from "@/types/note";
 import { nextServer } from "./api";
-import { User } from "../../types/note";
+import { User } from "@/types/user";
+import { UserRequest, CheckSessionRequest } from "@/types/user";
 
 type FetchNotesResponse = NotesResponse & { totalCount: number };
 
@@ -56,11 +52,31 @@ export const getNotes = async (tagId?: string): Promise<NotesResponse> => {
   return data;
 };
 
+export const register = async (data: UserRequest): Promise<User> => {
+  const response = await nextServer.post<User>("/auth/register", data);
+  return response.data;
+};
+
+export const login = async (data: UserRequest): Promise<User> => {
+  const response = await nextServer.post<User>("/auth/login", data);
+  return response.data;
+};
+
 export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
 
-export const register = async (data: RegisterRequest) => {
-  const response = await nextServer.post<User>("/auth/register", data);
+export const checkSession = async () => {
+  const { data } = await nextServer.get<CheckSessionRequest>("/auth/session");
+  return data.success;
+};
+
+export const getMe = async () => {
+  const { data } = await nextServer.get<User>("/auth/me");
+  return data;
+};
+
+export const updateUser = async (data: { username: string }): Promise<User> => {
+  const response = await nextServer.patch<User>("/users/me", data);
   return response.data;
 };

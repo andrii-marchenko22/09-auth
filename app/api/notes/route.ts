@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { api } from "../api";
+import { api } from "@/app/api/api";
 import { cookies } from "next/headers";
 
 export async function GET(request: NextRequest) {
@@ -7,9 +7,9 @@ export async function GET(request: NextRequest) {
   const search = request.nextUrl.searchParams.get("search") ?? "";
   const page = Number(request.nextUrl.searchParams.get("page") ?? 1);
   const rawTag = request.nextUrl.searchParams.get("tag") ?? "";
-  const tag = rawTag === "All" ? "" : rawTag;
+  const tag = rawTag === "all" ? "" : rawTag;
 
-  const { data } = await api("/notes", {
+  const { data } = await api.get("/notes", {
     params: {
       ...(search !== "" && { search }),
       page,
