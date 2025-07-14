@@ -8,7 +8,7 @@ type FetchNotesResponse = NotesResponse & { totalCount: number };
 export const fetchNotes = async (
   searchText: string,
   page = 1,
-  perPage = 12,
+  perPage = 10,
   tag?: string
 ): Promise<FetchNotesResponse> => {
   const response = await nextServer.get<NotesResponse>("/notes", {
@@ -16,7 +16,7 @@ export const fetchNotes = async (
       ...(searchText !== "" && { search: searchText }),
       page,
       perPage,
-      ...(tag && tag !== "all" && { tag }),
+      ...(tag && tag !== "All" && { tag }),
     },
   });
 
@@ -40,12 +40,10 @@ export const fetchNoteById = async (id: number): Promise<Note> => {
   return data;
 };
 
-export const getInitialNotes = () => fetchNotes("", 1, 12, "");
-
 export const getNotes = async (tagId?: string): Promise<NotesResponse> => {
   const { data } = await nextServer.get<NotesResponse>("/notes", {
     params: {
-      ...(tagId && tagId !== "all" && { tag: tagId }),
+      ...(tagId && tagId !== "All" && { tag: tagId }),
     },
   });
 
@@ -71,7 +69,7 @@ export const checkSession = async () => {
   return data.success;
 };
 
-export const getMe = async () => {
+export const getMe = async (): Promise<User> => {
   const { data } = await nextServer.get<User>("/auth/me");
   return data;
 };

@@ -9,6 +9,8 @@ import AuthNavigation from "@/components/AuthNavigation/AuthNavigation";
 const Header = () => {
   const { isAuthenticated } = useAuthStore();
 
+  const homeHref = isAuthenticated ? "/profile" : "/";
+
   return (
     <header className={css.header}>
       <Link href="/" aria-label="Home" className={css.headerLink}>
@@ -18,17 +20,15 @@ const Header = () => {
       <nav aria-label="Main Navigation" className={css.navigation}>
         <ul className={css.navList}>
           <li className={css.navigationItem}>
-            <Link href="/" className={css.navigationLink}>
+            <Link href={homeHref} className={css.navigationLink}>
               Home
             </Link>
           </li>
-
           {isAuthenticated && (
             <li className={css.navigationItem}>
               <TagsMenu />
             </li>
           )}
-
           <AuthNavigation />
         </ul>
       </nav>

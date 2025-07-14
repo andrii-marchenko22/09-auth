@@ -34,7 +34,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/notehub-og-meta.ico",
   },
-  themeColor: "#4A90E2",
 };
 
 export default function RootLayout({

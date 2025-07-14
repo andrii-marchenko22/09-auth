@@ -39,12 +39,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const NotesByCategory = async ({ params }: Props) => {
   const { slug } = await params;
-  const category = slug[0]?.toLowerCase() === "all" ? undefined : slug[0];
+  const category = slug[0]?.toLowerCase() === "All" ? undefined : slug[0];
   const initialData = await getNotes(category);
 
   return (
     <div>
-      <NotesClient initialData={initialData} activeTag={category ?? "all"} />
+      <NotesClient initialData={initialData} activeTag={category ?? "All"} />
     </div>
   );
 };

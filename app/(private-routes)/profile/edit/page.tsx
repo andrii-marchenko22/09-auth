@@ -13,9 +13,10 @@ const EditProfilePage = () => {
 
   const handleSubmitEdit = async (formData: FormData) => {
     const username = formData.get("username") as string;
+
     try {
-      const updatedUser = await updateUser({ username });
-      setUser(updatedUser);
+      const editUser = await updateUser({ username });
+      setUser(editUser);
       router.push("/profile");
     } catch (error) {
       console.error("Failed to update username:", error);
@@ -36,9 +37,10 @@ const EditProfilePage = () => {
           width={120}
           height={120}
           className={css.avatar}
+          priority
         />
 
-        <form className={css.profileInfo} action={handleSubmitEdit}>
+        <form action={handleSubmitEdit} className={css.profileInfo}>
           <div className={css.usernameWrapper}>
             <label htmlFor="username">Username:</label>
             <input

@@ -19,7 +19,7 @@ const NoteForm = () => {
     onSuccess: () => {
       clearDraft();
       queryClient.invalidateQueries({ queryKey: ["notes"] });
-      router.push("/notes/filter/all");
+      router.push("/notes/filter/All");
     },
   });
 
