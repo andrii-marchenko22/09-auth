@@ -5,7 +5,7 @@ import css from "./NotePreview.module.css";
 import { fetchNoteById } from "@/lib/api/clientApi";
 
 interface NoteDetailsClientProps {
-  noteId: number;
+  noteId: string;
   onClose: () => void;
 }
 

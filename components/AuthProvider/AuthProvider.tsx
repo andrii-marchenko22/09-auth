@@ -16,12 +16,17 @@ const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const isAuthenticated = await checkSession();
-      if (isAuthenticated) {
-        const user = await getMe();
-        if (user) setUser(user);
-      } else {
+      try {
+        const isAuthenticated = await checkSession();
+        if (isAuthenticated) {
+          const user = await getMe();
+          if (user) setUser(user);
+        } else {
+          clearIsAuthenticated();
+        }
+      } catch (error) {
         clearIsAuthenticated();
+        console.error("Auth check failed:", error);
       }
     };
     fetchUser();

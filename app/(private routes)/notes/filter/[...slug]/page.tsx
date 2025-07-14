@@ -1,4 +1,4 @@
-import { getNotes } from "@/lib/api/clientApi";
+import { fetchNotes } from "@/lib/api/clientApi";
 import NotesClient from "./Notes.client";
 import { Metadata } from "next";
 
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `Notes filtered by: ${category}`,
       description: `Browse all notes in the "${category}" category.`,
-      url: `https://08-zustand-beryl.vercel.app/notes/filter/${slug.join("/")}`,
+      url: `https://09-auth-ruddy-nine.vercel.app/notes/filter/${slug.join("/")}`,
       siteName: "NoteHub",
       images: [
         {
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const NotesByCategory = async ({ params }: Props) => {
   const { slug } = await params;
   const category = slug[0]?.toLowerCase() === "All" ? undefined : slug[0];
-  const initialData = await getNotes(category);
+  const initialData = await fetchNotes("", 1, 10, category);
 
   return (
     <div>

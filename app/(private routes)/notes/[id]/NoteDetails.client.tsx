@@ -5,7 +5,7 @@ import css from "./NoteDetails.module.css";
 import { fetchNoteById } from "@/lib/api/clientApi";
 
 interface NoteDetailsClientProps {
-  noteId: number;
+  noteId: string;
 }
 
 const NoteDetailsClient = ({ noteId }: NoteDetailsClientProps) => {

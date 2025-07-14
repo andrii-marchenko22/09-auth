@@ -12,7 +12,6 @@ import { Toaster } from "react-hot-toast";
 import { ErrorMessage } from "@/components/ErrorMesage/ErrorMesage";
 import { Loader } from "@/components/Loader/Loader";
 import type { NotesResponse } from "@/types/note";
-
 import { useRouter } from "next/navigation";
 
 interface NotesClientProps {

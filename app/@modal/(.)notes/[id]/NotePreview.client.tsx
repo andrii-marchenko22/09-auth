@@ -5,7 +5,7 @@ import NoteDetailsClient from "@/components/NotePreview/NotePreview";
 import { useRouter } from "next/navigation";
 
 interface PreviewClientProps {
-  noteId: number;
+  noteId: string;
 }
 
 const PreviewClient = ({ noteId }: PreviewClientProps) => {

@@ -1,7 +1,8 @@
 import type { Note, NewNote, NotesResponse } from "@/types/note";
 import { nextServer } from "./api";
 import { User } from "@/types/user";
-import { UserRequest, CheckSessionRequest } from "@/types/user";
+import { UserRequest, CheckSessionResponse } from "@/types/user";
+import { AxiosError } from "axios";
 
 type FetchNotesResponse = NotesResponse & { totalCount: number };
 
@@ -30,23 +31,13 @@ export const createNote = async (noteData: NewNote): Promise<Note> => {
   return data;
 };
 
-export const deleteNote = async (notesId: number): Promise<Note> => {
+export const deleteNote = async (notesId: string): Promise<Note> => {
   const { data } = await nextServer.delete<Note>(`/notes/${notesId}`);
   return data;
 };
 
-export const fetchNoteById = async (id: number): Promise<Note> => {
+export const fetchNoteById = async (id: string): Promise<Note> => {
   const { data } = await nextServer.get<Note>(`/notes/${id}`);
-  return data;
-};
-
-export const getNotes = async (tagId?: string): Promise<NotesResponse> => {
-  const { data } = await nextServer.get<NotesResponse>("/notes", {
-    params: {
-      ...(tagId && tagId !== "All" && { tag: tagId }),
-    },
-  });
-
   return data;
 };
 
@@ -64,13 +55,28 @@ export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
 };
 
-export const checkSession = async () => {
-  const { data } = await nextServer.get<CheckSessionRequest>("/auth/session");
-  return data.success;
+export const checkSession = async (): Promise<{
+  success: boolean;
+  message: string;
+}> => {
+  try {
+    const { data, status } =
+      await nextServer.get<CheckSessionResponse>("/auth/session");
+    return { success: status === 200, message: data.message };
+  } catch (error) {
+    const axiosError = error as AxiosError<{ message: string }>;
+    if (
+      axiosError.response?.status === 400 ||
+      axiosError.response?.status === 401
+    ) {
+      return { success: false, message: axiosError.response.data.message };
+    }
+    throw error;
+  }
 };
 
 export const getMe = async (): Promise<User> => {
-  const { data } = await nextServer.get<User>("/auth/me");
+  const { data } = await nextServer.get<User>("/users/me");
   return data;
 };
 

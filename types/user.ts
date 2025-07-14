@@ -9,6 +9,6 @@ export interface UserRequest {
   password: string;
 }
 
-export interface CheckSessionRequest {
-  success: boolean;
+export interface CheckSessionResponse {
+  message: string;
 }

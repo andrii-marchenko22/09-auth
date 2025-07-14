@@ -12,18 +12,17 @@ interface Props {
 
 const NoteDetailsModal = async ({ params }: Props) => {
   const { id } = await params;
-  const noteId = Number(id);
 
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["note", noteId],
-    queryFn: () => fetchNoteById(noteId),
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <PreviewClient noteId={noteId} />
+      <PreviewClient noteId={id} />
     </HydrationBoundary>
   );
 };
