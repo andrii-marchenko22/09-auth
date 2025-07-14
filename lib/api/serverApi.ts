@@ -1,6 +1,7 @@
 import { api } from "@/app/api/api";
 import { cookies } from "next/headers";
 import { nextServer } from "./api";
+import { User } from "@/types/user";
 
 export const getUserFromServer = async () => {
   try {
@@ -37,5 +38,15 @@ export const checkServerSession = async () => {
     },
   });
 
+  return data;
+};
+
+export const getServerMe = async (): Promise<User> => {
+  const cookieStore = await cookies();
+  const { data } = await nextServer.get("auth/users/me", {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
   return data;
 };

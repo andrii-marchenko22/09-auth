@@ -1,11 +1,9 @@
-"use client";
-
-import { useAuthStore } from "@/lib/store/authStore";
 import Image from "next/image";
 import css from "./ProfilePage.module.css";
+import { getServerMe } from "@/lib/api/serverApi";
 
-const ProfilePage = () => {
-  const user = useAuthStore((state) => state.user);
+const ProfilePage = async () => {
+  const user = await getServerMe();
   return (
     <main className={css.mainContent}>
       <div className={css.profileCard}>

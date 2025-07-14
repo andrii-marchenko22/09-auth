@@ -3,46 +3,23 @@
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./AuthNavigation.module.css";
 import { useRouter } from "next/navigation";
-import { logout, checkSession, getMe } from "@/lib/api/clientApi";
+import { logout } from "@/lib/api/clientApi";
 import Link from "next/link";
-import { useEffect } from "react";
 
 const AuthNavigation = () => {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const setUser = useAuthStore((state) => state.setUser);
+
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated
   );
-  const hasHydrated = useAuthStore((state) => state.hasHydrated);
 
   const handleLogout = async () => {
     await logout();
     clearIsAuthenticated();
     router.push("/sign-in");
   };
-
-  useEffect(() => {
-    const verifySession = async () => {
-      const sessionActive = await checkSession();
-      if (sessionActive) {
-        const userData = await getMe();
-        if (userData) {
-          setUser(userData);
-        } else {
-          clearIsAuthenticated();
-        }
-      } else {
-        clearIsAuthenticated();
-      }
-    };
-    verifySession();
-  }, [setUser, clearIsAuthenticated]);
-
-  if (!hasHydrated) {
-    return null;
-  }
 
   return isAuthenticated ? (
     <>
