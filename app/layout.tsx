@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     ],
   },
   icons: {
-    icon: "/notehub-og-meta.ico",
+    icon: "/title-web.ico",
   },
 };
 
