@@ -28,7 +28,7 @@ const NoteDetailsClient = ({ noteId, onClose }: NoteDetailsClientProps) => {
       <div className={css.item}>
         <div className={css.header}>
           <h2>{item.title}</h2>
-          <button className={css.editBtn} onClick={onClose}>
+          <button className={css.backBtn} onClick={onClose}>
             Go back
           </button>
         </div>

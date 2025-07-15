@@ -19,7 +19,9 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
+  // Якщо користувач не залогінений (нема accessToken)
   if (!accessToken) {
+    // Якщо є refreshToken — спробувати оновити сесію
     if (refreshToken) {
       const data = await checkServerSession();
       const setCookie = data.headers["set-cookie"];
@@ -38,6 +40,8 @@ export async function middleware(request: NextRequest) {
           if (parsed.refreshToken)
             cookieStore.set("refreshToken", parsed.refreshToken, options);
         }
+
+        // після оновлення токенів — якщо public route, редірект на /
         if (isPublicRoute) {
           return NextResponse.redirect(new URL("/", request.url), {
             headers: {
@@ -45,6 +49,8 @@ export async function middleware(request: NextRequest) {
             },
           });
         }
+
+        // якщо private route — пропускаємо далі
         if (isPrivateRoute) {
           return NextResponse.next({
             headers: {
@@ -55,21 +61,37 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    if (isPublicRoute) {
-      return NextResponse.next();
-    }
-
+    // Якщо приватна сторінка — редірект на /sign-in
     if (isPrivateRoute) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
+    // Публічні сторінки — пропускаємо
+    if (isPublicRoute) {
+      return NextResponse.next();
+    }
+
+    // Інші запити — пропускаємо
     return NextResponse.next();
   }
 
-  if (isPublicRoute) {
-    return NextResponse.redirect(new URL("/", request.url));
+  // Якщо користувач залогінений (є accessToken)
+  if (accessToken) {
+    // Дозволяємо тільки /sign-up залогіненим
+    if (pathname === "/sign-up") {
+      return NextResponse.next();
+    }
+
+    // Інші публічні сторінки (наприклад /sign-in) — редірект на /
+    if (isPublicRoute) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    // Приватні та інші — пропускаємо
+    return NextResponse.next();
   }
 
+  // Все інше — пропускаємо
   return NextResponse.next();
 }
 
