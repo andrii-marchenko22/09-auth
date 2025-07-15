@@ -4,15 +4,13 @@ import { User } from "@/types/user";
 import { UserRequest, CheckSessionResponse } from "@/types/user";
 import { AxiosError } from "axios";
 
-type FetchNotesResponse = NotesResponse & { totalCount: number };
-
 export const fetchNotes = async (
   searchText: string,
   page = 1,
   perPage = 10,
   tag?: string
-): Promise<FetchNotesResponse> => {
-  const response = await nextServer.get<NotesResponse>("/notes", {
+): Promise<NotesResponse> => {
+  const { data } = await nextServer.get<NotesResponse>("/notes", {
     params: {
       ...(searchText !== "" && { search: searchText }),
       page,
@@ -21,9 +19,7 @@ export const fetchNotes = async (
     },
   });
 
-  const totalCount = Number(response.headers["x-total-count"]);
-
-  return { ...response.data, totalCount };
+  return data;
 };
 
 export const createNote = async (noteData: NewNote): Promise<Note> => {
